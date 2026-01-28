@@ -2,6 +2,10 @@
  * Sandbox module exports.
  */
 
+// Cloudflare Sandbox SDK implementation (replaces Modal)
+export { CloudflareSandboxManager, createSandboxManager, type SandboxConfig } from "./cloudflare";
+
+// Legacy Modal exports (deprecated - kept for reference during migration)
 export {
   ModalClient,
   createModalClient,

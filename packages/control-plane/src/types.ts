@@ -2,10 +2,15 @@
  * Type definitions for Open-Inspect Control Plane.
  */
 
+import type { Sandbox } from "@cloudflare/sandbox";
+
 // Environment bindings
 export interface Env {
   // Durable Objects
   SESSION: DurableObjectNamespace;
+
+  // Cloudflare Sandbox (container-based code execution)
+  Sandbox: DurableObjectNamespace<Sandbox>;
 
   // KV Namespaces
   SESSION_INDEX: KVNamespace; // Index for listing sessions
@@ -18,9 +23,6 @@ export interface Env {
   GITHUB_CLIENT_SECRET: string;
   TOKEN_ENCRYPTION_KEY: string;
   ENCRYPTION_KEY: string; // Key for encrypting/decrypting tokens
-  MODAL_TOKEN_ID?: string;
-  MODAL_TOKEN_SECRET?: string;
-  MODAL_API_SECRET?: string; // Shared secret for authenticating with Modal endpoints
   INTERNAL_CALLBACK_SECRET?: string; // For signing callbacks to slack-bot
 
   // GitHub App secrets (for git operations)
@@ -28,15 +30,19 @@ export interface Env {
   GITHUB_APP_PRIVATE_KEY?: string;
   GITHUB_APP_INSTALLATION_ID?: string;
 
+  // LLM API keys (passed to sandbox via environment)
+  ANTHROPIC_API_KEY?: string;
+  OPENAI_API_KEY?: string;
+
   // Variables
   DEPLOYMENT_NAME: string;
   WORKER_URL?: string; // Base URL for the worker (for callbacks)
   WEB_APP_URL?: string; // Base URL for the web app (for PR links)
   CF_ACCOUNT_ID?: string; // Cloudflare account ID
-  MODAL_WORKSPACE?: string; // Modal workspace name (used in Modal endpoint URLs)
 
   // Sandbox lifecycle configuration
   SANDBOX_INACTIVITY_TIMEOUT_MS?: string; // Inactivity timeout in ms (default: 600000 = 10 min)
+  SANDBOX_SLEEP_AFTER?: string; // Cloudflare sandbox sleep timeout (default: "1h")
 }
 
 // Session status

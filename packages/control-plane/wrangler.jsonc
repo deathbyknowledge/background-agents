@@ -1,0 +1,60 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "open-inspect-control-plane",
+  "main": "src/index.ts",
+  "compatibility_date": "2024-12-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Durable Objects
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "SESSION",
+        "class_name": "SessionDO",
+      },
+      {
+        "name": "Sandbox",
+        "class_name": "Sandbox",
+      },
+    ],
+  },
+
+  // Migrations for Durable Objects with SQLite
+  // Note: Sandbox class comes from @cloudflare/sandbox and uses its own storage
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["SessionDO"],
+    },
+    {
+      "tag": "v2",
+      "new_sqlite_classes": ["Sandbox"],
+    },
+  ],
+
+  // KV Namespaces (created via wrangler or dashboard)
+  // For local dev, wrangler creates these automatically
+  "kv_namespaces": [
+    {
+      "binding": "SESSION_INDEX",
+      "id": "SESSION_INDEX_DEV",
+    },
+  ],
+
+  // Cloudflare Sandbox container configuration
+  // This tells wrangler how to build and deploy the sandbox container image
+  "containers": [
+    {
+      "class_name": "Sandbox",
+      "image": "../sandbox/Dockerfile",
+      "max_instances": 10,
+    },
+  ],
+
+  // Environment variables for local development
+  // Set secrets via .dev.vars file
+  "vars": {
+    "DEPLOYMENT_NAME": "local-dev",
+    "SANDBOX_SLEEP_AFTER": "1h",
+  },
+}

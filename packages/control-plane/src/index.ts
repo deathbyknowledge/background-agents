@@ -10,6 +10,10 @@ import type { Env } from "./types";
 // Re-export Durable Object for Cloudflare to discover
 export { SessionDO } from "./session/durable-object";
 
+// Re-export Sandbox class from SDK for Cloudflare container binding
+// This is required for the container binding in wrangler.jsonc to work
+export { Sandbox } from "@cloudflare/sandbox";
+
 /**
  * Worker fetch handler.
  */
