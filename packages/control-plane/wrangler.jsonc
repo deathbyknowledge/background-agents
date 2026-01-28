@@ -37,7 +37,6 @@
   "kv_namespaces": [
     {
       "binding": "SESSION_INDEX",
-      "id": "SESSION_INDEX_DEV",
     },
   ],
 
@@ -48,8 +47,12 @@
       "class_name": "Sandbox",
       "image": "../sandbox/Dockerfile",
       "max_instances": 10,
+      "instance_type": "standard-2"
     },
   ],
+  "observability": {
+    "enabled": true,
+  },
 
   // Environment variables for local development
   // Set secrets via .dev.vars file
