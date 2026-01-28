@@ -1,6 +1,0 @@
-{
-  "buildCommand": "npm run build --workspace=@open-inspect/web",
-  "outputDirectory": "packages/web/.next",
-  "installCommand": "npm install",
-  "framework": "nextjs"
-}
